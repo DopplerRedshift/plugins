@@ -38,12 +38,12 @@ class Share {
       'bcc': bcc,
     };
 
-    if (sharePositionOrigin != null) {
-      params['originX'] = sharePositionOrigin.left;
-      params['originY'] = sharePositionOrigin.top;
-      params['originWidth'] = sharePositionOrigin.width;
-      params['originHeight'] = sharePositionOrigin.height;
-    }
+//    if (sharePositionOrigin != null) {
+//      params['originX'] = sharePositionOrigin.left;
+//      params['originY'] = sharePositionOrigin.top;
+//      params['originWidth'] = sharePositionOrigin.width;
+//      params['originHeight'] = sharePositionOrigin.height;
+//    }
 
     return channel.invokeMethod('share', params);
   }
