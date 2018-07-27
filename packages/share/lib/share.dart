@@ -27,7 +27,7 @@ class Share {
   ///
   /// May throw [PlatformException] or [FormatException]
   /// from [MethodChannel].
-  static Future<void> share(String text, String type, {String subject, String cc, String bcc}) {
+  static Future<void> share(String text, String type, String subject, String cc, String bcc) {
     assert(text != null);
     assert(text.isNotEmpty);
     assert(type != null);

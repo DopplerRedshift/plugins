@@ -17,10 +17,17 @@ static NSString *const PLATFORM_CHANNEL = @"plugins.flutter.io/share";
     if ([@"share" isEqualToString:call.method]) {
       NSDictionary *arguments = [call arguments];
       NSString *shareText = arguments[@"text"];
+      NSString *typeText = arguments[@"type"];
 
       if (shareText.length == 0) {
         result(
             [FlutterError errorWithCode:@"error" message:@"Non-empty text expected" details:nil]);
+        return;
+      }
+
+      if (typeText.length == 0) {
+        result(
+          [FlutterError errorWithCode:@"error" message:@"Non-empty type expected" details:nil]);
         return;
       }
 
@@ -35,9 +42,15 @@ static NSString *const PLATFORM_CHANNEL = @"plugins.flutter.io/share";
                                 [originWidth doubleValue], [originHeight doubleValue]);
       }
 
-      [self share:shareText
+      [self [share:shareText share:typeText]
           withController:[UIApplication sharedApplication].keyWindow.rootViewController
                 atSource:originRect];
+      //result(nil);
+
+      // [self share:typeText
+      //     withController:[UIApplication sharedApplication].keyWindow.rootViewController
+      //           atSource:originRect];
+      
       result(nil);
     } else {
       result(FlutterMethodNotImplemented);
