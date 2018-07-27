@@ -9,6 +9,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 import java.util.Map;
+import java.net.URI;
 
 /** Plugin method host for presenting a share sheet via Intent */
 public class SharePlugin implements MethodChannel.MethodCallHandler {
