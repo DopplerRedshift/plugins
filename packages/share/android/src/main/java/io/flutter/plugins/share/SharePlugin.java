@@ -72,8 +72,9 @@ public class SharePlugin implements MethodChannel.MethodCallHandler {
         throw new IllegalArgumentException("Non-empty type expected");
     }
 
-    if (!("".equals(subject))) {
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+    if (subject == null || subject.isEmpty()) {
+        //shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        throw new IllegalArgumentException("Non-empty subject expected");
     }
 
     if (cc != null && !cc.isEmpty()) {
@@ -85,6 +86,7 @@ public class SharePlugin implements MethodChannel.MethodCallHandler {
     }
 
     shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+    shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
     shareIntent.setType(type);
     Intent chooserIntent = Intent.createChooser(shareIntent, null /* dialog title optional */);
