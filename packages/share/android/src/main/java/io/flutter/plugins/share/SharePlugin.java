@@ -62,6 +62,7 @@ public class SharePlugin implements MethodChannel.MethodCallHandler {
   private void share(String text, String type, String subject, String cc, String bcc) {
     
     Intent shareIntent = new Intent();
+    shareIntent.setAction(Intent.ACTION_SEND);
     
     if (text == null || text.isEmpty()) {
       throw new IllegalArgumentException("Non-empty text expected");
@@ -73,7 +74,6 @@ public class SharePlugin implements MethodChannel.MethodCallHandler {
 
     if (!("".equals(subject))) {
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        System.out.println("Using EXTRA_SUBJECT for: " + subject);
     }
 
     if (cc != null && !cc.isEmpty()) {
@@ -84,7 +84,6 @@ public class SharePlugin implements MethodChannel.MethodCallHandler {
         shareIntent.putExtra(Intent.EXTRA_BCC, bcc);
     }
 
-    shareIntent.setAction(Intent.ACTION_SEND);
     shareIntent.putExtra(Intent.EXTRA_TEXT, text);
 
     shareIntent.setType(type);
