@@ -81,7 +81,7 @@ public class SharePlugin implements MethodChannel.MethodCallHandler {
         throw new IllegalArgumentException("Non-empty subject expected");
     }
 
-    shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+    shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
     if (cc != null && !cc.isEmpty()) {
         shareIntent.putExtra(Intent.EXTRA_CC, cc);
