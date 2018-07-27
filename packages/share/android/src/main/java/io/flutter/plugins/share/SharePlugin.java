@@ -41,29 +41,52 @@ public class SharePlugin implements MethodChannel.MethodCallHandler {
     }
   }
 
-  private void share(String text, String type="text/plain", String subject="", String cc="", String bcc="") {
+  private void share(String text) {
+      if (text == null || text.isEmpty()) {
+          throw new IllegalArgumentException("Non-empty text expected");
+      }
+
+      Intent shareIntent = new Intent();
+      shareIntent.setAction(Intent.ACTION_SEND);
+      shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+      shareIntent.setType("text/plain");
+      Intent chooserIntent = Intent.createChooser(shareIntent, null /* dialog title optional */);
+      if (mRegistrar.activity() != null) {
+          mRegistrar.activity().startActivity(chooserIntent);
+      } else {
+          chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          mRegistrar.context().startActivity(chooserIntent);
+      }
+  }
+
+  private void share(String text, String type, String subject, String cc, String bcc) {
     if (text == null || text.isEmpty()) {
       throw new IllegalArgumentException("Non-empty text expected");
+    }
+
+    if (type == null || type.isEmpty()) {
+        throw new IllegalArgumentException("Non-empty type expected");
+    }
+
+    if (subject != null && !subject.isEmpty()) {
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+    }
+
+    if (cc != null && !cc.isEmpty()) {
+        shareIntent.putExtra(Intent.EXTRA_CC, cc);
+    }
+
+    if (bcc != null && !bcc.isEmpty()) {
+        shareIntent.putExtra(Intent.EXTRA_BCC, bcc);
     }
 
     Intent shareIntent = new Intent();
     shareIntent.setAction(Intent.ACTION_SEND);
     shareIntent.putExtra(Intent.EXTRA_TEXT, text);
 
-    if (!subject.isEmpty()) {
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-    }
-
-    if (!cc.isEmpty()) {
-        shareIntent.putExtra(Intent.EXTRA_CC, cc);
-    }
-
-    if (!bcc.isEmpty()) {
-        shareIntent.putExtra(Intent.EXTRA_BCC, bcc);
-    }
-
     shareIntent.setType(type);
     Intent chooserIntent = Intent.createChooser(shareIntent, null /* dialog title optional */);
+
     if (mRegistrar.activity() != null) {
       mRegistrar.activity().startActivity(chooserIntent);
     } else {
