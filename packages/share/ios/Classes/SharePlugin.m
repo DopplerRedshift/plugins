@@ -18,6 +18,7 @@ static NSString *const PLATFORM_CHANNEL = @"plugins.flutter.io/share";
       NSDictionary *arguments = [call arguments];
       NSString *shareText = arguments[@"text"];
       NSString *typeText = arguments[@"type"];
+      NSString *subjectText = arguments[@"subject"];
 
       if (shareText.length == 0) {
         result(
