@@ -60,44 +60,49 @@ public class SharePlugin implements MethodChannel.MethodCallHandler {
   }
 
   private void share(String text, String type, String subject, String cc, String bcc) {
+
+    Intent emailIntent = new Intent(Intent.ACTION_VIEW);
+    Uri mailLine = Uri.parse("mailto:?subject=" + subject + "&body=" + text);
+    emailIntent.setData(mailLine);
+    startActivity(emailIntent);
     
-    Intent shareIntent = new Intent();
-    shareIntent.setAction(Intent.ACTION_SEND);
+    // Intent shareIntent = new Intent();
+    // shareIntent.setAction(Intent.ACTION_SEND);
     
-    if (text == null || text.isEmpty()) {
-      throw new IllegalArgumentException("Non-empty text expected");
-    }
+    // if (text == null || text.isEmpty()) {
+    //   throw new IllegalArgumentException("Non-empty text expected");
+    // }
 
-    shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+    // shareIntent.putExtra(Intent.EXTRA_TEXT, text);
 
-    if (type == null || type.isEmpty()) {
-        throw new IllegalArgumentException("Non-empty type expected");
-    }
+    // if (type == null || type.isEmpty()) {
+    //     throw new IllegalArgumentException("Non-empty type expected");
+    // }
 
-    shareIntent.setType(type);
+    // shareIntent.setType(type);
 
-    if (subject == null || subject.isEmpty()) {
-        //shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        throw new IllegalArgumentException("Non-empty subject expected");
-    }
+    // if (subject == null || subject.isEmpty()) {
+    //     //shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+    //     throw new IllegalArgumentException("Non-empty subject expected");
+    // }
 
-    shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+    // shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
 
-    if (cc != null && !cc.isEmpty()) {
-        shareIntent.putExtra(Intent.EXTRA_CC, cc);
-    }
+    // if (cc != null && !cc.isEmpty()) {
+    //     shareIntent.putExtra(Intent.EXTRA_CC, cc);
+    // }
 
-    if (bcc != null && !bcc.isEmpty()) {
-        shareIntent.putExtra(Intent.EXTRA_BCC, bcc);
-    }
+    // if (bcc != null && !bcc.isEmpty()) {
+    //     shareIntent.putExtra(Intent.EXTRA_BCC, bcc);
+    // }
 
-    Intent chooserIntent = Intent.createChooser(shareIntent, null /* dialog title optional */);
+    // Intent chooserIntent = Intent.createChooser(shareIntent, null /* dialog title optional */);
 
-    if (mRegistrar.activity() != null) {
-      mRegistrar.activity().startActivity(chooserIntent);
-    } else {
-      chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      mRegistrar.context().startActivity(chooserIntent);
-    }
+    // if (mRegistrar.activity() != null) {
+    //   mRegistrar.activity().startActivity(chooserIntent);
+    // } else {
+    //   chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    //   mRegistrar.context().startActivity(chooserIntent);
+    // }
   }
 }
