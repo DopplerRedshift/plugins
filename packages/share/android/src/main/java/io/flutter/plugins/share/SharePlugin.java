@@ -73,6 +73,7 @@ public class SharePlugin implements MethodChannel.MethodCallHandler {
 
     if (!("".equals(subject))) {
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        System.out.println("Using EXTRA_SUBJECT for: " + subject);
     }
 
     if (cc != null && !cc.isEmpty()) {
