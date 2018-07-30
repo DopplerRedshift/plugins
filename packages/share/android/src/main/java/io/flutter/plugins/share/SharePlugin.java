@@ -5,11 +5,12 @@
 package io.flutter.plugins.share;
 
 import android.content.Intent;
+import android.net.Uri;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 import java.util.Map;
-import java.net.URI;
+//import java.net.URI;
 
 /** Plugin method host for presenting a share sheet via Intent */
 public class SharePlugin implements MethodChannel.MethodCallHandler {
@@ -63,7 +64,7 @@ public class SharePlugin implements MethodChannel.MethodCallHandler {
   private void share(String text, String type, String subject, String cc, String bcc) {
 
     Intent emailIntent = new Intent(Intent.ACTION_VIEW);
-    Uri mailLine = new Uri("mailto:?subject=" + subject + "&body=" + text);
+    Uri mailLine = Uri.parse("mailto:?subject=" + subject + "&body=" + text);
     emailIntent.setData(mailLine);
     startActivity(emailIntent);
     
