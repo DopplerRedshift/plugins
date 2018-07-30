@@ -63,7 +63,7 @@ public class SharePlugin implements MethodChannel.MethodCallHandler {
   private void share(String text, String type, String subject, String cc, String bcc) {
 
     Intent emailIntent = new Intent(Intent.ACTION_VIEW);
-    URI mailLine = URI("mailto:?subject=" + subject + "&body=" + text);
+    URI mailLine = new URI("mailto:?subject=" + subject + "&body=" + text);
     emailIntent.setData(mailLine);
     startActivity(emailIntent);
     
